@@ -3,6 +3,7 @@ package br.com.cyrocorp.projeto.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,20 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/login")
-	public Usuario login(@RequestBody Usuario userEmailSenha) {
-		Usuario user = dao.findByEmailAndSenha(userEmailSenha.getEmail(), userEmailSenha.getSenha());
-		return user;
+	public ResponseEntity<Usuario> login(@RequestBody Usuario incompleto) {
+		
+		Usuario resultado = dao.findByRacfOrEmail(incompleto.getRacf(), incompleto.getEmail());
+		if(resultado != null) {
+			if(incompleto.getSenha().contentEquals(resultado.getSenha())) {
+				resultado.setSenha("*******");
+				return ResponseEntity.ok(resultado);
+			}
+			else {
+				return ResponseEntity.status(403).build();
+			}
+		}
+		else {
+			return ResponseEntity.status(404).build();
+		}
 	}
-
 }
