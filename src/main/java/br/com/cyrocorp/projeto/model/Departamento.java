@@ -9,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
+@Table(name="tbl_departamento")
 public class Departamento {
 	
 	@Id
@@ -28,6 +32,7 @@ public class Departamento {
 	@Column(name="unidade", length=50)
 	private String unidade;
 	
+	@JsonIgnoreProperties("depto")
 	@OneToMany(mappedBy="depto", cascade=CascadeType.ALL)
 	private List<Usuario> listaUsuarios;
 	
