@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import br.com.cyrocorp.projeto.dao.UsuarioDAO;
 import br.com.cyrocorp.projeto.model.Usuario;
 
 @RestController
+@CrossOrigin("*")
 public class UsuarioController {
 	
 	@Autowired
